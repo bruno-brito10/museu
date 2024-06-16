@@ -37,4 +37,14 @@ export class ServicosUsuario {
 
         await this.repositorioUsuario.removerUsuario(id_usuario);
     }
+
+    async removerConta (id: number) {
+        const usuario = await this.repositorioUsuario.encontrarUsuarioPorId(id);
+        if (!usuario) {
+            throw new ErroCustomizado ('Usuário Não Encontrado',404);
+        } 
+
+        await this.repositorioUsuario.removerUsuario(id);
+    }
+
 }

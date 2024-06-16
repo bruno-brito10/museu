@@ -54,4 +54,19 @@ export class ControleUsuario {
 
 
     }
+
+    removerConta = async (req:Request,res:Response)=> {
+        const id = parseInt(req.params.id);
+        try{
+            await this.servicoUsuario.removerConta(id);
+            res.status(200).send('Usuário Removido');
+        } catch (error){
+            console.error(error)
+            if (error instanceof ErroCustomizado) {
+                res.status(error.status).send({error: error.message});
+            } else {
+                res.status(500).send({ error: 'Erro do Servidor Interno'});
+            }
+        }
+    }
 }

@@ -12,6 +12,16 @@ export class RepositorioUsuario {
         }
     }
 
+    async encontrarUsuarioPorId (id: number):Promise<IUsuario|null> {
+        const client = await pool.connect();
+        try {
+            const resultado = await client.query('SELECT *FROM usuarios WHERE id = $1', [id]);
+            return resultado.rows[0] || null;
+        } finally {
+            client.release();
+        }
+    }
+
     
     async salvarUsuario (usuario: IUsuario) {
         const client = await pool.connect();
