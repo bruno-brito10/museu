@@ -1,4 +1,3 @@
-import { promises } from "dns";
 import pool from "../config/db";
 import { IObraArte } from "../interfaces/obraArte";
 
@@ -31,6 +30,17 @@ export class RepositorioObra {
             const query = 'SELECT * FROM obradearte WHERE dono = $1 AND id = $2';
             const res = await client.query(query, [idUsuario, idObra]);
             return res.rows.length > 0 ? res.rows[0] :null;
+        } finally {
+            client.release();
+        }
+    }
+
+    async removerObra (idUsuario: number, idObra: number): Promise <boolean> {
+        const client = await pool.connect();
+        try {
+            const query = 'DELETE FROM obradearte WHERE dono = $1 AND id = $2';
+            const res = await client.query(query, [idUsuario, idObra]);
+            return res.rowCount != null && res.rowCount > 0;
         } finally {
             client.release();
         }

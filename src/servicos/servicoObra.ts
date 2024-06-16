@@ -32,6 +32,15 @@ export class ServicoObra {
         return obra;
    }
 
+   async removerObraDeArte(idUsuario: number, idObra: number) {
+        const obra = await this.repositorioObra.buscarObraPorId(idUsuario, idObra);
+        if (!obra) {
+            throw new ErroCustomizado('Obra nao encontrada',404);
+        }
+        
+        await this.repositorioObra.removerObra(idUsuario, idObra)
+   }
+
 
 }
 

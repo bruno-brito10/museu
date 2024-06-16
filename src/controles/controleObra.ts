@@ -58,6 +58,25 @@ export class ControleObra{
             console.error(error)
             if (error instanceof ErroCustomizado) {
                 res.status(error.status).send({error: error.message});
+            }  else {
+                res.status(500).send({error: 'Erro de Servidor Interno'})
+            }
+        }
+    }
+
+    removerObra = async (req:Request, res: Response) => {
+        try {
+            const idUsuario = parseInt(req.params.id_usuario);
+            const idObra = parseInt(req.params.id_obra);
+            await this.servicoObra.removerObraDeArte(idUsuario, idObra);
+            res.status(200).send('Obra Removida')
+
+        } catch (error) {
+            console.error(error);
+            if (error instanceof ErroCustomizado) {
+                res.status(error.status).send({error: error.message});
+            }  else {
+                res.status(500).send({error: 'Erro de Servidor Interno'})
             }
         }
     }
