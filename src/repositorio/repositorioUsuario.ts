@@ -57,5 +57,19 @@ export class RepositorioUsuario {
                 client.release();
             }
         }
+
+        async atualizarUsuario(usuario: IUsuario) {
+            const client = await pool.connect();
+            try {
+                const query = `
+                    UPDATE usuarios
+                    SET nome = $1, email = $2, senha = $3, papeis = $4, liberado = $5
+                    WHERE id = $6;
+                `;
+                await client.query(query, [usuario.nome, usuario.email, usuario.senha, usuario.papeis, usuario.liberado, usuario.id]);
+            } finally {
+                client.release();
+            }
+        }
     
 }

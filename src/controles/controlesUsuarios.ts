@@ -9,6 +9,7 @@ export class ControleUsuario {
     constructor(private servicoUsuario: ServicosUsuario) {}
     criarUsuario = async (req:Request,res:Response) => {
         const usuario = req.body as IUsuario;
+        usuario.liberado = false
         try{
             await this.servicoUsuario.criarUsuario (usuario);
             res.status(201).send('usuário salvo com sucesso');
@@ -68,5 +69,26 @@ export class ControleUsuario {
                 res.status(500).send({ error: 'Erro do Servidor Interno'});
             }
         }
+    }
+
+    atualizarUsuario = async (req:Request,res:Response)=> {
+        const id = parseInt(req.params.id);
+        const senha = req.body.senha;
+        const nome = req.body.nome;
+        try {
+            if (!senha && !nome) {
+                throw new ErroCustomizado('Sem parametros Validos',412);
+            }
+            await this.servicoUsuario.atualizarUsuario(id, nome, senha);
+            res.status(200).send('Usuaário Atualizado');
+        } catch (error){
+            console.error(error)
+            if (error instanceof ErroCustomizado) {
+                res.status(error.status).send({error: error.message});
+            } else {
+                res.status(500).send({ error: 'Erro do Servidor Interno'});
+            }
+        }
+
     }
 }

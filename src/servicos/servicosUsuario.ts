@@ -47,4 +47,15 @@ export class ServicosUsuario {
         await this.repositorioUsuario.removerUsuario(id);
     }
 
+    async atualizarUsuario (id: number, nome?: string, senha?: string) {
+        const usuario = await this.repositorioUsuario.encontrarUsuarioPorId(id);
+        if (!usuario) {
+            throw new ErroCustomizado('Usuário Nao Encontrsado',404);
+        }
+        const attUsuario = usuario;
+        attUsuario.nome = nome? nome: usuario.nome;
+        attUsuario.senha = senha? senha: usuario.senha;
+        await this.repositorioUsuario.atualizarUsuario(attUsuario);
+    }
+
 }

@@ -4,5 +4,5 @@ export interface IUsuario {
     email: string;
     senha: string;
     papeis: string;
-    liberado: boolean;
+    liberado?: boolean;
 }
