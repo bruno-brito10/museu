@@ -23,6 +23,15 @@ export class ServicoObra {
 
    }
 
+   async buscarObraPorId (idUsuario: number, idObra: number): Promise<IObraArte> {
+        const obra = await this.repositorioObra.buscarObraPorId(idUsuario, idObra);
+        if (!obra) {
+            throw new ErroCustomizado('Obra nao Encontrada',404);
+        }
+
+        return obra;
+   }
+
 
 }
 

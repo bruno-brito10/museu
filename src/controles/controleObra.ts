@@ -47,4 +47,19 @@ export class ControleObra{
         }
     }
 
+    buscarObraPorId = async (req: Request, res: Response) => {
+        try {
+            const idUsuario = parseInt(req.params.id_usuario);
+            const idObra = parseInt(req.params.id_obra);
+            const obra = await this.servicoObra.buscarObraPorId(idUsuario, idObra);
+            res.status(200).json(obra);
+        
+        } catch (error) {
+            console.error(error)
+            if (error instanceof ErroCustomizado) {
+                res.status(error.status).send({error: error.message});
+            }
+        }
+    }
+
 }

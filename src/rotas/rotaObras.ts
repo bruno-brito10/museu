@@ -26,7 +26,8 @@ function criarRotasObra() {
     const controleObra = new ControleObra(servicoObra);
 
     rotasObras.post('/criar-obras', upload.single('foto'), controleObra.criarObra);
-    rotasObras.get('/listar-obras/:id', controleObra.listarObrasPorIdUsuario)
+    rotasObras.get('/listar-obras/:id', controleObra.listarObrasPorIdUsuario);
+    rotasObras.get('/usuario/:id_usuario/obra/:id_obra', controleObra.buscarObraPorId);
 
     return rotasObras;
 }
