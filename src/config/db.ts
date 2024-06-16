@@ -39,8 +39,9 @@ const criarTabelaObra = async () => {
                 id SERIAL PRIMARY KEY,
                 nome VARCHAR(100) NOT NULL,
                 autor VARCHAR(100) NOT NULL,
-                dono INTEGER REFERENCES usuarios(id) ON DELETE SET NULL,
-                url_foto VARCHAR(255) NOT NULL
+                dono INTEGER REFERENCES usuarios(id) ON DELETE CASCADE,
+                url_foto VARCHAR(255) NOT NULL,
+                descricao TEXT NOT NULL
             );
         `;
 
