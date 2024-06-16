@@ -12,7 +12,8 @@ function criarUsuarioRotas() {
     const controlesUsuario = new ControleUsuario(servicosUsuario);
 
     rotasUsuario.post('/usuarios/novo', controlesUsuario.criarUsuario );
-    rotasUsuario.get('/listar-usuarios/:email',controlesUsuario.listarTodosUsuarios)
+    rotasUsuario.get('/listar-usuarios/:email',controlesUsuario.listarTodosUsuarios);
+    rotasUsuario.delete('/remover-usuario/:email/:id', controlesUsuario.removerUsuario);
     return rotasUsuario;
 
 

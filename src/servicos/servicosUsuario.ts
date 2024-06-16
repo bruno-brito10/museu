@@ -26,5 +26,15 @@ export class ServicosUsuario {
 
         const usuarios = await this.repositorioUsuario.listarTodosUsuarios();
         return usuarios;
-}
+    }
+
+    async removerUsuario (email: string, id_usuario: number) {
+        const admin = await this.repositorioUsuario.encontarUsuarioPorEmail(email);
+
+        if (admin?.papeis != 'admin') {
+            throw new ErroCustomizado ('Usuário nao tem Autorização',403);
+        } 
+
+        await this.repositorioUsuario.removerUsuario(id_usuario);
+    }
 }

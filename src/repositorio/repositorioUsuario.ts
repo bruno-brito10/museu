@@ -38,5 +38,14 @@ export class RepositorioUsuario {
             }
 
         }
+
+        async removerUsuario(id_usuario: number) {
+            const client = await pool.connect();
+            try {
+                await client.query('DELETE FROM usuarios WHERE id = $1', [id_usuario]);
+            } finally {
+                client.release();
+            }
+        }
     
 }

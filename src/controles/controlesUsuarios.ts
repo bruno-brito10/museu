@@ -21,6 +21,22 @@ export class ControleUsuario {
         }
     }
 
+    removerUsuario = async (req:Request,res:Response)=> {
+        const email = req.params.email as string;
+        const id = parseInt(req.params.id);
+        try {
+             await this.servicoUsuario.removerUsuario(email,id);
+             res.status(200).send('Usuário Removido')
+        } catch (error) {
+            console.error(error)
+            if (error instanceof ErroCustomizado) {
+                res.status(error.status).send({error: error.message});
+            } else {
+                res.status(500).send({error: 'Erro de Servidor Interno'});
+            }
+        }
+    }
+
     listarTodosUsuarios = async (req:Request,res:Response)=> {
         const email = req.params.email as string;
         try{
@@ -32,6 +48,7 @@ export class ControleUsuario {
                 res.status(error.status).send({error: error.message});
             } else {
                 res.status(500).send({ error: 'Erro do Servidor Interno'});
+
             }
         }
 
