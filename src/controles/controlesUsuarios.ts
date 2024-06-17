@@ -95,7 +95,7 @@ export class ControleUsuario {
     login = async(req:Request,res:Response) => {
         const email = req.body.email;
         const senha = req.body.senha;
-        try {
+         try {
             const usuario = await this.servicoUsuario.login(email, senha);
             res.status(200).json(usuario);
         } catch (error){
