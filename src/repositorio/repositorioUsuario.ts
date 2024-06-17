@@ -71,5 +71,19 @@ export class RepositorioUsuario {
                 client.release();
             }
         }
+
+        async liberarUsuario(idUsuario: number) {
+            const client = await pool.connect();
+            try {
+                const query = `
+                    UPDATE  usuarios
+                    SET liberado = true
+                    WHERE id = $1;
+                `;
+                await client.query(query, [idUsuario]);
+            } finally {
+                client.release();
+            }
+        }
     
 }

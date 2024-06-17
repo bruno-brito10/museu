@@ -66,4 +66,12 @@ export class ServicosUsuario {
         return usuario;
     }
 
+    async liberarUsuario(idAdmin: number, idUsuario: number) {
+        const usuarioAdmin = await this.repositorioUsuario.encontrarUsuarioPorId(idAdmin);
+        if (usuarioAdmin?.papeis != "admin") {
+            throw new ErroCustomizado("usuario nao tem permisao",403);
+        }
+        await this.repositorioUsuario.liberarUsuario(idUsuario);
+    }
+
 }

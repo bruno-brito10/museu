@@ -17,6 +17,7 @@ function criarUsuarioRotas() {
     rotasUsuario.delete('/remover-conta/:id', controlesUsuario.removerConta);
     rotasUsuario.put('/atualizar-usuario/:id', controlesUsuario.atualizarUsuario);
     rotasUsuario.get('/login',controlesUsuario.login);
+    rotasUsuario.put('/liberar-usuario/:id_admin/:id_usuario',controlesUsuario.liberarUsuario);
 
     return rotasUsuario;
 }

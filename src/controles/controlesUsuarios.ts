@@ -107,4 +107,20 @@ export class ControleUsuario {
             }
         }
     }
+
+    liberarUsuario = async(req:Request,res:Response) => {
+        const idAdmin = parseInt(req.params.id_admin);
+        const idUsuario = parseInt(req.params.id_usuario);
+        try {
+            await this.servicoUsuario.liberarUsuario(idAdmin, idUsuario);
+            res.status(200).send("Usuario atualizado");
+        } catch (error){
+            console.error(error)
+            if (error instanceof ErroCustomizado) {
+                res.status(error.status).send({error: error.message});
+            } else {
+                res.status(500).send({ error: 'Erro do Servidor Interno'});
+            }
+        }
+    }
 }
