@@ -91,4 +91,20 @@ export class ControleUsuario {
         }
 
     }
+
+    login = async(req:Request,res:Response) => {
+        const email = req.body.email;
+        const senha = req.body.senha;
+        try {
+            const usuario = await this.servicoUsuario.login(email, senha);
+            res.status(200).json(usuario);
+        } catch (error){
+            console.error(error)
+            if (error instanceof ErroCustomizado) {
+                res.status(error.status).send({error: error.message});
+            } else {
+                res.status(500).send({ error: 'Erro do Servidor Interno'});
+            }
+        }
+    }
 }

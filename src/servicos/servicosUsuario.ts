@@ -58,4 +58,12 @@ export class ServicosUsuario {
         await this.repositorioUsuario.atualizarUsuario(attUsuario);
     }
 
+    async login(email: string, senha:string): Promise<IUsuario> {
+        const usuario = await this.repositorioUsuario.encontarUsuarioPorEmail(email);
+        if (!usuario || usuario?.senha != senha) {
+            throw new ErroCustomizado("Credenciais Inválidas",401);
+        }
+        return usuario;
+    }
+
 }
