@@ -29,7 +29,7 @@ function criarRotasObra() {
     rotasObras.get('/listar-obras/:id', controleObra.listarObrasPorIdUsuario);
     rotasObras.get('/usuario/:id_usuario/obra/:id_obra', controleObra.buscarObraPorId);
     rotasObras.delete('/usuario/:id_usuario/obra/:id_obra', controleObra.removerObra)
-
+    rotasObras.put('/usuario/:id_usuario/obra/:id_obra', controleObra.atualizarObra)
     return rotasObras;
 }
 

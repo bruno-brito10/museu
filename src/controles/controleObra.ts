@@ -81,4 +81,30 @@ export class ControleObra{
         }
     }
 
+    atualizarObra = async (req: Request, res: Response) => {
+        try {
+            const idUsuario = parseInt(req.params.id_usuario);
+            const idObra = parseInt(req.params.id_obra);
+
+            const nome = req.body.nome;
+            const autor = req.body.autor;
+            const descricao = req.body.descricao;
+
+            if(!nome && !autor && !descricao) {
+                throw new ErroCustomizado("campos inválidos", 400);
+            }
+
+            await this.servicoObra.atualizarObra(idUsuario, idObra, nome, autor, descricao);
+            res.status(200).send("Usuario atualizado");
+        
+        } catch (error) {
+            console.error(error);
+            if (error instanceof ErroCustomizado) {
+                res.status(error.status).send({error: error.message});
+            }  else {
+                res.status(500).send({error: 'Erro de Servidor Interno'})
+            }
+        }
+    }
+
 }

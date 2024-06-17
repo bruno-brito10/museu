@@ -46,4 +46,19 @@ export class RepositorioObra {
         }
     }
 
+    async atualizarObra (obra: IObraArte): Promise<boolean> {
+        const client = await pool.connect();
+        try {
+            const query = `
+                UPDATE obradearte
+                SET nome = $1, autor = $2, descricao = $3, url_foto = $4
+                WHERE dono = $5 AND id = $6
+            `;
+            const res = await client.query(query, [obra.nome,obra.autor, obra.descricao, obra.url_foto, obra.dono, obra.id]);
+            return res.rowCount != null && res.rowCount > 0;
+        } finally {
+            client.release()
+        }
+    }
+
 }

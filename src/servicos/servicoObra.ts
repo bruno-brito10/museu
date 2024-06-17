@@ -41,6 +41,28 @@ export class ServicoObra {
         await this.repositorioObra.removerObra(idUsuario, idObra)
    }
 
+   async atualizarObra (
+        idUsuario: number,
+        idObra: number,
+        nome: string,
+        autor: string,
+        descricao: string,
+    ) {
+        const obra = await this.repositorioObra.buscarObraPorId(idUsuario, idObra);
+
+        if (!obra) {
+            throw new ErroCustomizado('Obra nao encontrada',404);
+        }
+
+        const novaObra = obra;
+
+        novaObra.nome = nome? nome: obra.nome;
+        novaObra.autor = autor? autor: obra.autor;
+        novaObra.descricao = descricao? descricao: obra.descricao;
+
+        await this.repositorioObra.atualizarObra(novaObra);
+   }
+
 
 }
 
