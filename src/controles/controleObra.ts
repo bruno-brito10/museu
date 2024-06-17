@@ -21,13 +21,13 @@ export class ControleObra{
                 descricao,
             }
             await this.servicoObra.criarObra(obra) ;
-            res.status(201).send('Obra de Arte Salva com Sucesso')
+            res.status(201).json({message: 'Obra de Arte Salva com Sucesso'})
         } catch (error) {
             console.error(error)
             if (error instanceof ErroCustomizado) {
-                res.status(error.status).send({error: error.message});
+                res.status(error.status).json({error: error.message});
             } else {
-                res.status(500).send({error: 'Erro de Servidor Interno'})
+                res.status(500).json({error: 'Erro de Servidor Interno'})
             }
         }
     }
@@ -40,9 +40,9 @@ export class ControleObra{
         } catch (error) {
             console.error(error)
             if (error instanceof ErroCustomizado) {
-                res.status(error.status).send({error: error.message});
+                res.status(error.status).json({error: error.message});
             } else {
-                res.status(500).send({error: 'Erro de Servidor Interno'})
+                res.status(500).json({error: 'Erro de Servidor Interno'})
             }
         }
     }
@@ -57,9 +57,9 @@ export class ControleObra{
         } catch (error) {
             console.error(error)
             if (error instanceof ErroCustomizado) {
-                res.status(error.status).send({error: error.message});
+                res.status(error.status).json({error: error.message});
             }  else {
-                res.status(500).send({error: 'Erro de Servidor Interno'})
+                res.status(500).json({error: 'Erro de Servidor Interno'})
             }
         }
     }
@@ -69,14 +69,14 @@ export class ControleObra{
             const idUsuario = parseInt(req.params.id_usuario);
             const idObra = parseInt(req.params.id_obra);
             await this.servicoObra.removerObraDeArte(idUsuario, idObra);
-            res.status(200).send('Obra Removida')
+            res.status(200).json({message: 'Obra Removida'})
 
         } catch (error) {
             console.error(error);
             if (error instanceof ErroCustomizado) {
-                res.status(error.status).send({error: error.message});
+                res.status(error.status).json({error: error.message});
             }  else {
-                res.status(500).send({error: 'Erro de Servidor Interno'})
+                res.status(500).json({error: 'Erro de Servidor Interno'})
             }
         }
     }
@@ -95,14 +95,14 @@ export class ControleObra{
             }
 
             await this.servicoObra.atualizarObra(idUsuario, idObra, nome, autor, descricao);
-            res.status(200).send("Usuario atualizado");
+            res.status(200).json("Usuario atualizado");
         
         } catch (error) {
             console.error(error);
             if (error instanceof ErroCustomizado) {
-                res.status(error.status).send({error: error.message});
+                res.status(error.status).json({error: error.message});
             }  else {
-                res.status(500).send({error: 'Erro de Servidor Interno'})
+                res.status(500).json({error: 'Erro de Servidor Interno'})
             }
         }
     }

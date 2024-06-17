@@ -13,13 +13,13 @@ export class ControlePostagem {
 
         try {
             await this.servicePostagem.criarPostagem(idUsuario, idObra, mensagem);
-            res.status(201).send("Postagem criada");
+            res.status(201).json({message: "Postagem criada"});
         } catch(error) {
             console.error(error)
             if (error instanceof ErroCustomizado) {
-                res.status(error.status).send({error: error.message});
+                res.status(error.status).json({error: error.message});
             } else {
-                res.status(500).send({ error: 'Erro do Servidor Interno'});
+                res.status(500).json({ error: 'Erro do Servidor Interno'});
             }
         }
     }
@@ -34,9 +34,9 @@ export class ControlePostagem {
         }catch(error) {
             console.error(error)
             if (error instanceof ErroCustomizado) {
-                res.status(error.status).send({error: error.message});
+                res.status(error.status).json({error: error.message});
             } else {
-                res.status(500).send({ error: 'Erro do Servidor Interno'});
+                res.status(500).json({ error: 'Erro do Servidor Interno'});
             }
         }
     }
