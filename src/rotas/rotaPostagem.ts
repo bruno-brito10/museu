@@ -12,8 +12,8 @@ function criarPostagemRota() {
     const servicoPostagem = new ServicoPostagem(repositorioPostagem, repositorioObra);
     const controlesPostagem = new ControlePostagem(servicoPostagem);
 
-    rotaPostagem.post("/usuario/:id_usuario/obra/:id_obra/postagem", controlesPostagem.criarPostagem)
-
+    rotaPostagem.post("/usuario/:id_usuario/obra/:id_obra/criar-postagem", controlesPostagem.criarPostagem)
+    rotaPostagem.get("/usuario/:id_usuario/obra/:id_obra/listar-postagem", controlesPostagem.listarPostagens)
     return rotaPostagem;
 }
 
