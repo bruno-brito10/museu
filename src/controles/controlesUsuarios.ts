@@ -9,6 +9,7 @@ export class ControleUsuario {
     criarUsuario = async (req:Request,res:Response) => {
         const usuario = req.body as IUsuario;
         usuario.liberado = false
+        usuario.papeis = "usuario";
         try{
             await this.servicoUsuario.criarUsuario (usuario);
             res.status(201).json({message: 'usuário salvo com sucesso'});

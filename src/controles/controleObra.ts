@@ -2,13 +2,14 @@ import { Request, Response } from "express";
 import { ServicoObra } from "../servicos/servicoObra";
 import { ErroCustomizado } from "../erroCustomizado/erroCustomizado";
 import { IObraArte } from "../interfaces/obraArte";
+import path from "path";
 
 export class ControleObra{
     constructor (private servicoObra: ServicoObra ) {}
     criarObra = async (req:Request,res:Response) => {
         try{
             const { nome, autor, dono, descricao } =req.body;
-            const url_foto = req.file?.path;
+            const url_foto = req.file?.path.split(path.sep).join('/');
 
             if (!nome || !autor || !dono || !url_foto || !descricao) {
                 throw new ErroCustomizado('Campos Imvalidos',400);
