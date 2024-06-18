@@ -30,6 +30,8 @@ function criarRotasObra() {
     rotasObras.get('/usuario/:id_usuario/obra/:id_obra', controleObra.buscarObraPorId);
     rotasObras.delete('/usuario/:id_usuario/obra/:id_obra', controleObra.removerObra)
     rotasObras.put('/usuario/:id_usuario/obra/:id_obra', controleObra.atualizarObra)
+    rotasObras.get('/listar-obras', controleObra.listarObras)
+    
     return rotasObras;
 }
 

@@ -108,4 +108,18 @@ export class ControleObra{
         }
     }
 
+    listarObras = async(req: Request, res: Response) => {
+        try {
+            const obras = await this.servicoObra.listarObras();
+            res.status(200).json(obras);
+        } catch (error) {
+            console.error(error)
+            if (error instanceof ErroCustomizado) {
+                res.status(error.status).json({error: error.message});
+            } else {
+                res.status(500).json({error: 'Erro de Servidor Interno'})
+            }
+        }
+    }
+
 }

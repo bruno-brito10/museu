@@ -23,6 +23,11 @@ export class ServicoObra {
 
    }
 
+   async listarObras(): Promise<IObraArte[]>{
+        const obras = await this.repositorioObra.listarObra();
+        return obras;
+   }
+
    async buscarObraPorId (idUsuario: number, idObra: number): Promise<IObraArte> {
         const obra = await this.repositorioObra.buscarObraPorId(idUsuario, idObra);
         if (!obra) {

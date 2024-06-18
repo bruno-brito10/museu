@@ -24,6 +24,16 @@ export class RepositorioObra {
         }
     }
 
+    async listarObra(): Promise<IObraArte[]> {
+        const client = await pool.connect();
+        try {
+            const resposta = await client.query("SELECT * FROM obradearte");
+            return resposta.rows;
+        } finally { 
+            client.release();
+        }
+    }
+
     async buscarObraPorId (idUsuario: number, idObra: number): Promise <IObraArte | null> {
         const client = await pool.connect();
         try {
